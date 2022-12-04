@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanco">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints"
+            android:paddingHorizontal="15sp"
+            android:paddingVertical="10sp">
+            <TextView
+                android:id="@+id/cerrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|end"
+                android:text="@string/cerrar"
+                style="@style/fecha_noticia"
+                android:textColor="@color/azul"
+                android:layout_marginBottom="5sp"/>
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Most Anticipaded ...."
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                />
+
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agosto 21, 2022"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/negro"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:layout_marginBottom="10sp"
+                />
+
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="match_parent"
+                android:layout_height="250sp"
+                android:layout_weight="1"
+                android:layout_marginBottom="5sp"
+                android:layout_gravity="left"
+                />
+
+            <TextView
+                android:id="@+id/contenido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Most Anticipaded ...."
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/negro"
+                />
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

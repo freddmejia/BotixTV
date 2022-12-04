@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="7sp">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints"
+        app:cardCornerRadius="10sp"
+        android:elevation="0dp"
+        app:cardUseCompatPadding="true"
+        android:backgroundTint="@color/blanco">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="10sp">
+            <ImageView
+                android:id="@+id/imagen"
+                android:layout_width="match_parent"
+                android:layout_height="150sp"
+                android:layout_marginBottom="5sp"
+                />
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Most Anticipaded ...."
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                android:layout_marginBottom="9sp"
+                android:layout_marginHorizontal="10sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="90sp"
+                android:layout_height="2sp"
+                android:background="@color/azul"
+                android:layout_marginHorizontal="10sp"
+                android:layout_marginBottom="1sp"/>
+            <TextView
+                android:id="@+id/fecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agosto 21, 2022"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/negro"
+                android:layout_marginHorizontal="10sp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

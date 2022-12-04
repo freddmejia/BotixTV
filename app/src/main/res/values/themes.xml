@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Theme.BotixTV" parent="@style/Theme.Leanback" />
+
+    <style name="Theme.BotixTV.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BotixTV.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BotixTV.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

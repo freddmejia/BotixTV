@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">BotixTV</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="error_fragment_message">An error occurred</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="categorias">Categorias</string>
+    <string name="noticias">Noticias</string>
+    <string name="home">Home</string>
+    <string name="medicina">Medicina</string>
+    <string name="deporte">Deporte</string>
+    <string name="tecnologia">Tecnología</string>
+    <string name="error_server">Error al conectar server</string>
+    <string name="cerrar">Cerrar</string>
+
+</resources>

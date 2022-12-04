@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="title_bold" parent="@style/TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="subtitle_bold" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="title_icon_gris" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/icon_gris</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="title_icon_blanco" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/icon_blanco</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="title_noticia" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/negro</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="fecha_noticia" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/negro</item>
+    </style>
+</resources>

@@ -1,0 +1,522 @@
+"""
+Indicates what fields are available at the top level of a query operation.
+"""
+type Query {
+  """
+  Find a single user by an identifying attribute.
+  """
+  user("Search by primary key." id: ID, "Search by email address." email: String): User
+
+  """
+  List multiple users.
+  """
+  users("Filters by name. Accepts SQL LIKE wildcards `%` and `_`." name: String, "Limits number of fetched items." first: Int = 10, "The offset from which items are returned." page: Int): UserPaginator
+
+  categorias("Limits number of fetched items." first: Int = 5, "The offset from which items are returned." page: Int): CategoriasPaginator
+
+  noticias("Limits number of fetched items." first: Int = 5, "The offset from which items are returned." page: Int): NoticiasPaginator
+
+  categoria_noticias(id_categoria: ID!, "Limits number of fetched items." first: Int = 5, "The offset from which items are returned." page: Int): NoticiasPaginator
+
+  categoria_noticias_order(id_categoria: ID!, orderBy: [QueryCategoriaNoticiasOrderOrderByOrderByClause!], "Limits number of fetched items." first: Int = 5, "The offset from which items are returned." page: Int): NoticiasPaginator
+}
+
+type User {
+  id: ID!
+
+  name: String!
+
+  email: String!
+}
+
+"""
+A paginated list of User items.
+"""
+type UserPaginator {
+  """
+  Pagination information about the list of items.
+  """
+  paginatorInfo: PaginatorInfo!
+
+  """
+  A list of User items.
+  """
+  data: [User!]!
+}
+
+"""
+Information about pagination using a fully featured paginator.
+"""
+type PaginatorInfo {
+  """
+  Number of items in the current page.
+  """
+  count: Int!
+
+  """
+  Index of the current page.
+  """
+  currentPage: Int!
+
+  """
+  Index of the first item in the current page.
+  """
+  firstItem: Int
+
+  """
+  Are there more pages after this one?
+  """
+  hasMorePages: Boolean!
+
+  """
+  Index of the last item in the current page.
+  """
+  lastItem: Int
+
+  """
+  Index of the last available page.
+  """
+  lastPage: Int!
+
+  """
+  Number of items per page.
+  """
+  perPage: Int!
+
+  """
+  Number of total available items.
+  """
+  total: Int!
+}
+
+"""
+A paginated list of Categorias items.
+"""
+type CategoriasPaginator {
+  """
+  Pagination information about the list of items.
+  """
+  paginatorInfo: PaginatorInfo!
+
+  """
+  A list of Categorias items.
+  """
+  data: [Categorias!]!
+}
+
+type Categorias {
+  id: ID!
+
+  nombre: String!
+
+  noticias: [Noticias!]!
+
+  created_at: DateTime!
+
+  updated_at: DateTime!
+}
+
+type Noticias {
+  id: ID!
+
+  categoria: Categorias!
+
+  source: String!
+
+  autor: String
+
+  titulo: String!
+
+  descripcion: String!
+
+  url: String!
+
+  imagen: String
+
+  fecha_publicado_utc: String!
+
+  fecha_publicado: String!
+
+  contenido: String!
+
+  created_at: DateTime!
+
+  updated_at: DateTime!
+}
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
+
+"""
+A paginated list of Noticias items.
+"""
+type NoticiasPaginator {
+  """
+  Pagination information about the list of items.
+  """
+  paginatorInfo: PaginatorInfo!
+
+  """
+  A list of Noticias items.
+  """
+  data: [Noticias!]!
+}
+
+"""
+Order by clause for Query.categoria_noticias_order.orderBy.
+"""
+input QueryCategoriaNoticiasOrderOrderByOrderByClause {
+  """
+  The column that is used for ordering.
+  """
+  column: QueryCategoriaNoticiasOrderOrderByColumn!
+
+  """
+  The direction that is used for ordering.
+  """
+  order: SortOrder!
+}
+
+"""
+Allowed column names for Query.categoria_noticias_order.orderBy.
+"""
+enum QueryCategoriaNoticiasOrderOrderByColumn {
+  FECHA_PUBLICADO
+}
+
+"""
+Directions for ordering a list of records.
+"""
+enum SortOrder {
+  """
+  Sort records in ascending order.
+  """
+  ASC
+
+  """
+  Sort records in descending order.
+  """
+  DESC
+}
+
+type Mutation {
+  login(input: LoginInput): AuthPayload!
+
+  refreshToken(input: RefreshTokenInput): RefreshTokenPayload!
+
+  logout: LogoutResponse!
+
+  forgotPassword(input: ForgotPasswordInput!): ForgotPasswordResponse!
+
+  updateForgottenPassword(input: NewPasswordWithCodeInput): ForgotPasswordResponse!
+
+  register(input: RegisterInput): RegisterResponse!
+
+  socialLogin(input: SocialLoginInput!): AuthPayload!
+
+  verifyEmail(input: VerifyEmailInput!): AuthPayload!
+
+  updatePassword(input: UpdatePassword!): UpdatePasswordResponse!
+
+  crear_categoria(input: RegisterCategoria): Categorias!
+
+  crear_noticia(input: RegisterNoticia): Noticias!
+}
+
+input LoginInput {
+  username: String!
+
+  password: String!
+}
+
+type AuthPayload {
+  access_token: String
+
+  refresh_token: String
+
+  expires_in: Int
+
+  token_type: String
+
+  user: User
+}
+
+input RefreshTokenInput {
+  refresh_token: String
+}
+
+type RefreshTokenPayload {
+  access_token: String!
+
+  refresh_token: String!
+
+  expires_in: Int!
+
+  token_type: String!
+}
+
+type LogoutResponse {
+  status: String!
+
+  message: String
+}
+
+input ForgotPasswordInput {
+  email: String!
+}
+
+type ForgotPasswordResponse {
+  status: String!
+
+  message: String
+}
+
+input NewPasswordWithCodeInput {
+  email: String!
+
+  token: String!
+
+  password: String!
+
+  password_confirmation: String!
+}
+
+input RegisterInput {
+  name: String!
+
+  email: String!
+
+  password: String!
+
+  password_confirmation: String!
+}
+
+type RegisterResponse {
+  tokens: AuthPayload
+
+  status: RegisterStatuses!
+}
+
+enum RegisterStatuses {
+  MUST_VERIFY_EMAIL
+
+  SUCCESS
+}
+
+input SocialLoginInput {
+  provider: String!
+
+  token: String!
+}
+
+input VerifyEmailInput {
+  token: String!
+}
+
+input UpdatePassword {
+  old_password: String!
+
+  password: String!
+
+  password_confirmation: String!
+}
+
+type UpdatePasswordResponse {
+  status: String!
+
+  message: String
+}
+
+input RegisterCategoria {
+  nombre: String!
+}
+
+input RegisterNoticia {
+  id_categoria: ID!
+
+  source: String!
+
+  autor: String
+
+  titulo: String!
+
+  descripcion: String!
+
+  url: String!
+
+  imagen: String
+
+  fecha_publicado_utc: String!
+
+  fecha_publicado: String!
+
+  contenido: String!
+}
+
+type LoadCategorias {
+  categoria: Categorias!
+
+  noticias: [Noticias!]!
+}
+
+"""
+Aggregate functions when ordering by a relation without specifying a column.
+"""
+enum OrderByRelationAggregateFunction {
+  """
+  Amount of items.
+  """
+  COUNT
+}
+
+"""
+Aggregate functions when ordering by a relation that may specify a column.
+"""
+enum OrderByRelationWithColumnAggregateFunction {
+  """
+  Average.
+  """
+  AVG
+
+  """
+  Minimum.
+  """
+  MIN
+
+  """
+  Maximum.
+  """
+  MAX
+
+  """
+  Sum.
+  """
+  SUM
+
+  """
+  Amount of items.
+  """
+  COUNT
+}
+
+"""
+Allows ordering a list of records.
+"""
+input OrderByClause {
+  """
+  The column that is used for ordering.
+  """
+  column: String!
+
+  """
+  The direction that is used for ordering.
+  """
+  order: SortOrder!
+}
+
+"""
+Information about pagination using a simple paginator.
+"""
+type SimplePaginatorInfo {
+  """
+  Number of items in the current page.
+  """
+  count: Int!
+
+  """
+  Index of the current page.
+  """
+  currentPage: Int!
+
+  """
+  Index of the first item in the current page.
+  """
+  firstItem: Int
+
+  """
+  Index of the last item in the current page.
+  """
+  lastItem: Int
+
+  """
+  Number of items per page.
+  """
+  perPage: Int!
+
+  """
+  Are there more pages after this one?
+  """
+  hasMorePages: Boolean!
+}
+
+"""
+Information about pagination using a Relay style cursor connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  The cursor to continue paginating backwards.
+  """
+  startCursor: String
+
+  """
+  The cursor to continue paginating forwards.
+  """
+  endCursor: String
+
+  """
+  Total number of nodes in the paginated connection.
+  """
+  total: Int!
+
+  """
+  Number of nodes in the current page.
+  """
+  count: Int!
+
+  """
+  Index of the current page.
+  """
+  currentPage: Int!
+
+  """
+  Index of the last available page.
+  """
+  lastPage: Int!
+}
+
+"""
+Specify if you want to include or exclude trashed results from a query.
+"""
+enum Trashed {
+  """
+  Only return trashed results.
+  """
+  ONLY
+
+  """
+  Return both trashed and non-trashed results.
+  """
+  WITH
+
+  """
+  Only return non-trashed results.
+  """
+  WITHOUT
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

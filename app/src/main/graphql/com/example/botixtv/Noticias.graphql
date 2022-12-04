@@ -1,0 +1,21 @@
+query fetch_noticias_by_categoria_asc($first: Int!, $page: Int!, $categoria_id: ID!) {
+    categoria_noticias_order(first: $first, page: $page, orderBy: [{column: FECHA_PUBLICADO,
+        order: DESC}], id_categoria: $categoria_id){
+        data {
+            id
+            source
+            autor
+            titulo
+            descripcion
+            url
+            imagen
+            fecha_publicado_utc
+            fecha_publicado
+            contenido
+        }
+        paginatorInfo {
+            hasMorePages
+            total
+        }
+    }
+}
