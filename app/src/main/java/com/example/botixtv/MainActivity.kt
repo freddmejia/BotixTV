@@ -23,6 +23,7 @@ import com.example.botixtv.adapter.Adapter
 import com.example.botixtv.databinding.ActivityMainBinding
 import com.example.botixtv.model.Noticias
 import com.example.botixtv.observer.UIObserver
+import com.example.botixtv.sealed.Resultado
 import com.example.botixtv.utils.Utils
 import com.example.botixtv.viewmodel.ViewModel
 import com.squareup.picasso.Picasso
@@ -68,12 +69,7 @@ class MainActivity : FragmentActivity(),UIObserver {
 
         set_up()
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.resultNoticias.collect {
-                arraylist.addAll(it)
-                adapter.set_data(arraylist)
-            }
-        }
+
 
         lifecycleScope.launchWhenCreated {
             viewModel.loadProgress.collect {
@@ -81,14 +77,33 @@ class MainActivity : FragmentActivity(),UIObserver {
                 binding.progressBar.isVisible = it
             }
         }
-        lifecycleScope.launchWhenCreated {
+        /*lifecycleScope.launchWhenCreated {
             viewModel.resultString.collect {
                 if (it.isNotEmpty()){
                     Toast.makeText(this@MainActivity,it,Toast.LENGTH_LONG).show()
                 }
             }
         }
+        lifecycleScope.launchWhenCreated {
+            viewModel.resultNoticias.collect {
+                arraylist.addAll(it)
+                adapter.set_data(arraylist)
+            }
+        }
+        */
+        lifecycleScope.launchWhenCreated {
+            viewModel.rest.collect{
+                when(it) {
+                    is Resultado.Error -> Toast.makeText(this@MainActivity,it.error,Toast.LENGTH_LONG).show()
+                    is Resultado.Success<*> -> {
+                        arraylist.addAll(it.data as ArrayList<Noticias>)
+                        adapter.set_data(arraylist)
+                    }
+                    is Resultado.Empty -> {}
 
+                }
+            }
+        }
 
     }
 

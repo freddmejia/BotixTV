@@ -4,37 +4,36 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.apollographql.apollo3.api.http.HttpResponse
+import com.apollographql.apollo3.exception.ApolloException
 import com.example.botixtv.Fetch_noticias_by_categoria_ascQuery
 import com.example.botixtv.apollo.apolloClient
 import com.example.botixtv.model.Noticias
+import com.example.botixtv.sealed.Resultado
 import com.example.botixtv.selections.Fetch_noticias_by_categoria_ascQuerySelections
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ViewModel : ViewModel() {
-    private val _resultNoticias = MutableStateFlow<ArrayList<Noticias>>(ArrayList())
-    val resultNoticias : StateFlow<ArrayList<Noticias>> = _resultNoticias
-
     private val _loadProgress = MutableStateFlow<Boolean>(false)
     val loadProgress : StateFlow<Boolean> = _loadProgress
 
-    private val _resultString = MutableStateFlow<String>("")
-    val resultString : StateFlow<String> = _resultString
+    private val _rest = MutableStateFlow<Resultado>(value = Resultado.Empty)
+    val rest : StateFlow<Resultado> = _rest
 
     fun fetch_noticas(first: Int, page: Int, categoria_id: String) = viewModelScope.launch {
-        _resultNoticias.value = ArrayList()
-        _resultString.value = ""
+        _rest.value = Resultado.Empty
         val noticias_temp = ArrayList<Noticias> ()
         _loadProgress.value = true
         try {
             Log.e("ERRORGET","1")
-            val response = apolloClient.query(
-            Fetch_noticias_by_categoria_ascQuery(
-                first = first,
-                page = page,
-                categoria_id = categoria_id
-            )
+            var response = apolloClient.query(
+                Fetch_noticias_by_categoria_ascQuery(
+                    first = first,
+                    page = page,
+                    categoria_id = categoria_id
+                )
             ).execute()
             Log.e("ERRORGET","2")
 
@@ -62,12 +61,13 @@ class ViewModel : ViewModel() {
                     )
                 }
             }
+            _rest.value = if (noticias_temp.isNotEmpty()) Resultado.Success(data = noticias_temp)
+                else Resultado.Error(error = "")
 
-        }catch (e: java.lang.Exception){
-            Log.e("ERRORGET","ERROR "+e.localizedMessage)
-            _resultString.value = e.message.toString()
+        }catch (e: ApolloException){
+            Log.e("ERRORGET","ERROR "+e.cause + " ")
+            _rest.value = Resultado.Error(error = e.message.toString())
         }
         _loadProgress.value = false
-        _resultNoticias.value = noticias_temp
     }
 }

@@ -1,0 +1,6 @@
+projectKey=botix-tv
+serverUrl=http://localhost:9000
+serverVersion=9.7.1.62043
+dashboardUrl=http://localhost:9000/dashboard?id=botix-tv
+ceTaskId=AYTeOO1IanxJ148WQBg7
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYTeOO1IanxJ148WQBg7

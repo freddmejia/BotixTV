@@ -10,6 +10,7 @@ import okhttp3.Response
 
 val apolloClient = ApolloClient.Builder()
     .serverUrl(Utils.server)
+    .httpExposeErrorBody(true)
     .build()
 
 /*private var instance: ApolloClient? = null
