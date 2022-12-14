@@ -9,7 +9,7 @@ class Utils {
         val deporte = "3"
         val tecnologia = "4"
         val elementos = 20
-        val server = "http://192.168.1.16:8000/graphql"
+        val server = "http://172.20.10.3:8000/graphql"
         fun string_date(stringDate: String): String{
             val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val formatter1 = SimpleDateFormat("MMMM dd, yyyy")

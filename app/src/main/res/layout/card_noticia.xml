@@ -26,19 +26,20 @@
                 android:layout_height="150sp"
                 android:layout_marginBottom="5sp"
                 />
+
             <TextView
                 android:id="@+id/titulo"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Most Anticipaded ...."
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textStyle="bold"
-                android:textColor="@color/negro"
-                android:layout_marginBottom="9sp"
                 android:layout_marginHorizontal="10sp"
-                android:maxLines="2"
+                android:layout_marginBottom="9sp"
                 android:ellipsize="end"
-                />
+                android:maxLines="2"
+                android:text="Most Anticipaded ...."
+                android:textColor="@color/negro"
+                android:textStyle="bold" />
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
